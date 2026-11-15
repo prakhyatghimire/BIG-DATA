@@ -1,0 +1,855 @@
+        at org.apache.hadoop.conf.Configuration.set(Configuration.java:1396)
+        at org.apache.hadoop.conf.Configuration.setBoolean(Configuration.java:1735)
+        at org.apache.hadoop.util.GenericOptionsParser.processGeneralOptions(GenericOptionsParser.java:346)
+        at org.apache.hadoop.util.GenericOptionsParser.parseGeneralOptions(GenericOptionsParser.java:579)
+        at org.apache.hadoop.util.GenericOptionsParser.<init>(GenericOptionsParser.java:181)
+        at org.apache.hadoop.util.GenericOptionsParser.<init>(GenericOptionsParser.java:163)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:97)
+        at org.apache.hadoop.yarn.client.cli.NodeCLI.main(NodeCLI.java:62)
+Caused by: com.ctc.wstx.exc.WstxParsingException: Illegal to have multiple roots (start tag in epilog?).
+ at [row,col,system-id]: [38,2,"file:/Users/prakhyat/hadoop-3.5.0/etc/hadoop/yarn-site.xml"]
+        at com.ctc.wstx.sr.StreamScanner.constructWfcException(StreamScanner.java:634)
+        at com.ctc.wstx.sr.StreamScanner.throwParseError(StreamScanner.java:504)
+        at com.ctc.wstx.sr.StreamScanner.throwParseError(StreamScanner.java:488)
+        at com.ctc.wstx.sr.BasicStreamReader.handleExtraRoot(BasicStreamReader.java:2239)
+        at com.ctc.wstx.sr.BasicStreamReader.nextFromProlog(BasicStreamReader.java:2153)
+        at com.ctc.wstx.sr.BasicStreamReader.closeContentTree(BasicStreamReader.java:2980)
+        at com.ctc.wstx.sr.BasicStreamReader.nextFromTree(BasicStreamReader.java:2728)
+        at com.ctc.wstx.sr.BasicStreamReader.next(BasicStreamReader.java:1121)
+        at org.apache.hadoop.conf.Configuration$Parser.parseNext(Configuration.java:3436)
+        at org.apache.hadoop.conf.Configuration$Parser.parse(Configuration.java:3222)
+        at org.apache.hadoop.conf.Configuration.loadResource(Configuration.java:3115)
+        ... 13 more
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % >....                                                                                           
+prop = """    <property>
+        <name>yarn.nodemanager.disk-health-checker.enable</name>
+        <value>false</value>
+    </property>
+"""
+
+if "yarn.nodemanager.disk-health-checker.enable" not in content:
+    if "</configuration>" in content:
+        content = content.replace("</configuration>", prop + "</configuration>")
+        with open(path, "w") as f:
+            f.write(content)
+        print("Successfully added disk health property to yarn-site.xml")
+    else:
+        print("Error: </configuration> not found")
+else:
+    print("Property already exists")
+'
+
+stop-yarn.sh
+start-yarn.sh
+Property already exists
+Stopping nodemanagers
+Stopping resourcemanagers on []
+Starting resourcemanagers on []
+localhost: ERROR: Cannot set priority of resourcemanager process 77783
+Starting nodemanagers
+localhost: ERROR: Cannot set priority of nodemanager process 77888
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % yarn node -list -all
+2026-11-15 11:04:54,767 ERROR conf.Configuration: error parsing conf yarn-site.xml
+com.ctc.wstx.exc.WstxParsingException: Illegal to have multiple roots (start tag in epilog?).
+ at [row,col,system-id]: [38,2,"file:/Users/prakhyat/hadoop-3.5.0/etc/hadoop/yarn-site.xml"]
+        at com.ctc.wstx.sr.StreamScanner.constructWfcException(StreamScanner.java:634)
+        at com.ctc.wstx.sr.StreamScanner.throwParseError(StreamScanner.java:504)
+        at com.ctc.wstx.sr.StreamScanner.throwParseError(StreamScanner.java:488)
+        at com.ctc.wstx.sr.BasicStreamReader.handleExtraRoot(BasicStreamReader.java:2239)
+        at com.ctc.wstx.sr.BasicStreamReader.nextFromProlog(BasicStreamReader.java:2153)
+        at com.ctc.wstx.sr.BasicStreamReader.closeContentTree(BasicStreamReader.java:2980)
+        at com.ctc.wstx.sr.BasicStreamReader.nextFromTree(BasicStreamReader.java:2728)
+        at com.ctc.wstx.sr.BasicStreamReader.next(BasicStreamReader.java:1121)
+        at org.apache.hadoop.conf.Configuration$Parser.parseNext(Configuration.java:3436)
+        at org.apache.hadoop.conf.Configuration$Parser.parse(Configuration.java:3222)
+        at org.apache.hadoop.conf.Configuration.loadResource(Configuration.java:3115)
+        at org.apache.hadoop.conf.Configuration.loadResources(Configuration.java:3076)
+        at org.apache.hadoop.conf.Configuration.loadProps(Configuration.java:2954)
+        at org.apache.hadoop.conf.Configuration.getProps(Configuration.java:2936)
+        at org.apache.hadoop.conf.Configuration.set(Configuration.java:1424)
+        at org.apache.hadoop.conf.Configuration.set(Configuration.java:1396)
+        at org.apache.hadoop.conf.Configuration.setBoolean(Configuration.java:1735)
+        at org.apache.hadoop.util.GenericOptionsParser.processGeneralOptions(GenericOptionsParser.java:346)
+        at org.apache.hadoop.util.GenericOptionsParser.parseGeneralOptions(GenericOptionsParser.java:579)
+        at org.apache.hadoop.util.GenericOptionsParser.<init>(GenericOptionsParser.java:181)
+        at org.apache.hadoop.util.GenericOptionsParser.<init>(GenericOptionsParser.java:163)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:97)
+        at org.apache.hadoop.yarn.client.cli.NodeCLI.main(NodeCLI.java:62)
+Exception in thread "main" java.lang.RuntimeException: com.ctc.wstx.exc.WstxParsingException: Illegal to have multiple roots (start tag in epilog?).
+ at [row,col,system-id]: [38,2,"file:/Users/prakhyat/hadoop-3.5.0/etc/hadoop/yarn-site.xml"]
+        at org.apache.hadoop.conf.Configuration.loadResource(Configuration.java:3132)
+        at org.apache.hadoop.conf.Configuration.loadResources(Configuration.java:3076)
+        at org.apache.hadoop.conf.Configuration.loadProps(Configuration.java:2954)
+        at org.apache.hadoop.conf.Configuration.getProps(Configuration.java:2936)
+        at org.apache.hadoop.conf.Configuration.set(Configuration.java:1424)
+        at org.apache.hadoop.conf.Configuration.set(Configuration.java:1396)
+        at org.apache.hadoop.conf.Configuration.setBoolean(Configuration.java:1735)
+        at org.apache.hadoop.util.GenericOptionsParser.processGeneralOptions(GenericOptionsParser.java:346)
+        at org.apache.hadoop.util.GenericOptionsParser.parseGeneralOptions(GenericOptionsParser.java:579)
+        at org.apache.hadoop.util.GenericOptionsParser.<init>(GenericOptionsParser.java:181)
+        at org.apache.hadoop.util.GenericOptionsParser.<init>(GenericOptionsParser.java:163)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+        at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:97)
+        at org.apache.hadoop.yarn.client.cli.NodeCLI.main(NodeCLI.java:62)
+Caused by: com.ctc.wstx.exc.WstxParsingException: Illegal to have multiple roots (start tag in epilog?).
+ at [row,col,system-id]: [38,2,"file:/Users/prakhyat/hadoop-3.5.0/etc/hadoop/yarn-site.xml"]
+        at com.ctc.wstx.sr.StreamScanner.constructWfcException(StreamScanner.java:634)
+        at com.ctc.wstx.sr.StreamScanner.throwParseError(StreamScanner.java:504)
+        at com.ctc.wstx.sr.StreamScanner.throwParseError(StreamScanner.java:488)
+        at com.ctc.wstx.sr.BasicStreamReader.handleExtraRoot(BasicStreamReader.java:2239)
+        at com.ctc.wstx.sr.BasicStreamReader.nextFromProlog(BasicStreamReader.java:2153)
+        at com.ctc.wstx.sr.BasicStreamReader.closeContentTree(BasicStreamReader.java:2980)
+        at com.ctc.wstx.sr.BasicStreamReader.nextFromTree(BasicStreamReader.java:2728)
+        at com.ctc.wstx.sr.BasicStreamReader.next(BasicStreamReader.java:1121)
+        at org.apache.hadoop.conf.Configuration$Parser.parseNext(Configuration.java:3436)
+        at org.apache.hadoop.conf.Configuration$Parser.parse(Configuration.java:3222)
+        at org.apache.hadoop.conf.Configuration.loadResource(Configuration.java:3115)
+        ... 13 more
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % nl -ba $HADOOP_HOME/etc/hadoop/yarn-site.xml
+     1  <?xml version="1.0"?>
+     2  <!--
+     3    Licensed under the Apache License, Version 2.0 (the "License");
+     4    you may not use this file except in compliance with the License.
+     5    You may obtain a copy of the License at
+     6
+     7      http://www.apache.org/licenses/LICENSE-2.0
+     8
+     9    Unless required by applicable law or agreed to in writing, software
+    10    distributed under the License is distributed on an "AS IS" BASIS,
+    11    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    12    See the License for the specific language governing permissions and
+    13    limitations under the License. See accompanying LICENSE file.
+    14  -->
+    15  <configuration>
+    16  <property>
+    17      <name>yarn.nodemanager.aux-services</name>
+    18      <value>mapreduce_shuffle</value>
+    19  </property>
+    20
+    21  <property>
+    22      <name>yarn.nodemanager.env-whitelist</name>
+    23      <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
+    24
+    25  </property>
+    26  <property>
+    27      <name>yarn.nodemanager.local-dirs</name>
+    28      <value>/Users/prakhyat/hadoop-yarn-local</value>
+    29  </property>
+    30
+    31  <property>
+    32      <name>yarn.nodemanager.log-dirs</name>
+    33      <value>/Users/prakhyat/hadoop-yarn-logs</value>
+    34  </property>
+    35  <!-- Site specific YARN configuration properties -->
+    36
+    37  </configuration>
+    38  <property>
+    39      <name>yarn.nodemanager.disk-health-checker.enable</name>
+    40      <value>false</value>
+    41  </property>
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % yarn node -list -all
+2026-11-15 11:08:11,351 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:08:11,388 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:08:12,538 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:13,544 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:14,551 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:15,555 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:16,561 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:17,567 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:18,571 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:19,577 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:20,584 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2026-11-15 11:08:21,588 INFO ipc.Client: Retrying connect to server: 0.0.0.0/0.0.0.0:8032. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+^C%                                                                                                                                            
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % stop-yarn.sh
+start-yarn.sh
+Stopping nodemanagers
+Stopping resourcemanager
+Starting resourcemanager
+Starting nodemanagers
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % yarn node -list
+2026-11-15 11:08:46,362 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:08:46,394 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+Total Nodes:1
+         Node-Id             Node-State Node-Http-Address       Number-of-Running-Containers
+ localhost:59777                RUNNING    localhost:8042                                  0
+(base) prakhyat@Prakhyats-MacBook-Air hadoop % cd /Users/prakhyat/Downloads/dataset/ecommerce-mapreduce
+hdfs dfs -rm -r -f /ecommerce/output_category_count
+hadoop jar ecommerce-mapreduce.jar EcommerceMapReduce category_count /ecommerce/cleaned_ecommerce_dataset.csv /ecommerce/output_category_count
+hdfs dfs -cat /ecommerce/output_category_count/part-r-00000
+2026-11-15 11:09:24,851 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:09:25,552 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:09:25,816 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:09:26,005 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface andexecute your application with ToolRunner to remedy this.
+2026-11-15 11:09:26,017 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794720217786_0001
+2026-11-15 11:09:26,239 INFO input.FileInputFormat: Total input files to process : 1
+2026-11-15 11:09:27,144 INFO mapreduce.JobSubmitter: number of splits:1
+2026-11-15 11:09:27,669 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794720217786_0001
+2026-11-15 11:09:27,669 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:09:27,779 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:09:27,779 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:09:28,127 INFO impl.YarnClientImpl: Submitted application application_1794720217786_0001
+2026-11-15 11:09:28,146 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794720217786_0001/
+2026-11-15 11:09:28,146 INFO mapreduce.Job: Running job: job_1794720217786_0001
+2026-11-15 11:09:29,160 INFO mapreduce.Job: Job job_1794720217786_0001 running in uber mode : false
+2026-11-15 11:09:29,161 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:09:29,175 INFO mapreduce.Job: Job job_1794720217786_0001 failed with state FAILED due to: Application application_1794720217786_0001 failed 2 times due to AM Container for appattempt_1794720217786_0001_000002 exited with  exitCode: -1000
+Failing this attempt.Diagnostics: [2026-11-15 11:09:28.322]No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+For more detailed output, check the application tracking page: http://localhost:8088/cluster/app/application_1794720217786_0001 Then click on links to logs of each attempt.
+. Failing the application.
+2026-11-15 11:09:29,189 INFO mapreduce.Job: Counters: 0
+2026-11-15 11:09:29,563 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+cat: `/ecommerce/output_category_count/part-r-00000': No such file or directory
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % cd /Users/prakhyat/Downloads/dataset/ecommerce-mapreduce
+hdfs dfs -rm -r -f /ecommerce/output_category_count
+hadoop jar ecommerce-mapreduce.jar EcommerceMapReduce category_count /ecommerce/cleaned_ecommerce_dataset.csv /ecommerce/output_category_count
+hdfs dfs -cat /ecommerce/output_category_count/part-r-00000
+2026-11-15 11:11:51,155 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:11:51,890 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:11:52,257 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:11:52,441 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface andexecute your application with ToolRunner to remedy this.
+2026-11-15 11:11:52,463 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794720217786_0002
+2026-11-15 11:11:52,631 INFO input.FileInputFormat: Total input files to process : 1
+2026-11-15 11:11:53,531 INFO mapreduce.JobSubmitter: number of splits:1
+2026-11-15 11:11:54,053 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794720217786_0002
+2026-11-15 11:11:54,054 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:11:54,162 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:11:54,163 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:11:54,199 INFO impl.YarnClientImpl: Submitted application application_1794720217786_0002
+2026-11-15 11:11:54,215 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794720217786_0002/
+2026-11-15 11:11:54,215 INFO mapreduce.Job: Running job: job_1794720217786_0002
+2026-11-15 11:11:55,236 INFO mapreduce.Job: Job job_1794720217786_0002 running in uber mode : false
+2026-11-15 11:11:55,237 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:11:55,252 INFO mapreduce.Job: Job job_1794720217786_0002 failed with state FAILED due to: Application application_1794720217786_0002 failed 2 times due to AM Container for appattempt_1794720217786_0002_000002 exited with  exitCode: -1000
+Failing this attempt.Diagnostics: [2026-11-15 11:11:54.236]No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+For more detailed output, check the application tracking page: http://localhost:8088/cluster/app/application_1794720217786_0002 Then click on links to logs of each attempt.
+. Failing the application.
+2026-11-15 11:11:55,267 INFO mapreduce.Job: Counters: 0
+2026-11-15 11:11:55,645 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+cat: `/ecommerce/output_category_count/part-r-00000': No such file or directory
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % cd /Users/prakhyat/Downloads/dataset/ecommerce-mapreduce
+
+# 1. Verify dataset exists in HDFS
+hdfs dfs -ls -h /ecommerce
+
+# 2. Clean old output directory
+hdfs dfs -rm -r -f /ecommerce/output_category_count
+
+# 3. Execute MapReduce Category Count Job
+hadoop jar ecommerce-mapreduce.jar EcommerceMapReduce category_count /ecommerce/cleaned_ecommerce_dataset.csv /ecommerce/output_category_count
+
+# 4. View output results
+hdfs dfs -cat /ecommerce/output_category_count/part-r-00000
+zsh: command not found: #
+2026-11-15 11:13:52,854 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+Found 6 items
+-rw-r--r--   1 prakhyat supergroup    128.4 M 2026-11-15 09:34 /ecommerce/cleaned_ecommerce_dataset.csv
+-rw-r--r--   1 prakhyat supergroup    391.4 M 2026-11-14 20:52 /ecommerce/clenaed_ecommerce_dataset.csv
+drwxr-xr-x   - prakhyat supergroup          0 2026-11-15 04:31 /ecommerce/hive_data
+drwxr-xr-x   - prakhyat supergroup          0 2026-11-15 01:34 /ecommerce/output_payment_count
+drwxr-xr-x   - prakhyat supergroup          0 2026-11-15 01:33 /ecommerce/output_sales
+drwxr-xr-x   - prakhyat supergroup          0 2026-10-31 21:18 /ecommerce/products
+zsh: command not found: #
+2026-11-15 11:13:53,601 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+zsh: command not found: #
+2026-11-15 11:13:54,399 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:13:54,774 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:13:55,179 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface andexecute your application with ToolRunner to remedy this.
+2026-11-15 11:13:55,220 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794720217786_0003
+2026-11-15 11:13:55,912 INFO input.FileInputFormat: Total input files to process : 1
+2026-11-15 11:13:56,419 INFO mapreduce.JobSubmitter: number of splits:1
+2026-11-15 11:13:56,959 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794720217786_0003
+2026-11-15 11:13:56,960 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:13:57,069 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:13:57,069 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:13:57,122 INFO impl.YarnClientImpl: Submitted application application_1794720217786_0003
+2026-11-15 11:13:57,140 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794720217786_0003/
+2026-11-15 11:13:57,140 INFO mapreduce.Job: Running job: job_1794720217786_0003
+2026-11-15 11:13:58,161 INFO mapreduce.Job: Job job_1794720217786_0003 running in uber mode : false
+2026-11-15 11:13:58,163 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:13:58,178 INFO mapreduce.Job: Job job_1794720217786_0003 failed with state FAILED due to: Application application_1794720217786_0003 failed 2 times due to AM Container for appattempt_1794720217786_0003_000002 exited with  exitCode: -1000
+Failing this attempt.Diagnostics: [2026-11-15 11:13:57.163]No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+For more detailed output, check the application tracking page: http://localhost:8088/cluster/app/application_1794720217786_0003 Then click on links to logs of each attempt.
+. Failing the application.
+2026-11-15 11:13:58,206 INFO mapreduce.Job: Counters: 0
+zsh: command not found: #
+2026-11-15 11:13:58,607 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+cat: `/ecommerce/output_category_count/part-r-00000': No such file or directory
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % yarn node -list -all
+2026-11-15 11:14:44,484 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:14:44,516 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+Total Nodes:1
+         Node-Id             Node-State Node-Http-Address       Number-of-Running-Containers
+ localhost:59777                RUNNING    localhost:8042                                  0
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % df -h /
+Filesystem       Size   Used  Avail Capacity iused     ifree %iused  Mounted on
+/dev/disk3s1s1  228Gi  8.7Gi   20Gi    31%  356882 209500880    0%   /
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % du -sh ~/hadoop-yarn-local ~/hadoop-yarn-logs
+  0B    /Users/prakhyat/hadoop-yarn-local
+  0B    /Users/prakhyat/hadoop-yarn-logs
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % du -sh /tmp/hadoop-yarn
+du: /tmp/hadoop-yarn: No such file or directory
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % ls -ld ~/hadoop-yarn-local ~/hadoop-yarn-logs
+drwxr-xr-x  2 prakhyat  staff  64 Nov 15 09:32 /Users/prakhyat/hadoop-yarn-local
+drwxr-xr-x  2 prakhyat  staff  64 Nov 15 04:34 /Users/prakhyat/hadoop-yarn-logs
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % touch ~/hadoop-yarn-local/testfile
+touch ~/hadoop-yarn-logs/testfile 
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % ls -l ~/hadoop-yarn-local ~/hadoop-yarn-logs
+/Users/prakhyat/hadoop-yarn-local:
+total 0
+-rw-r--r--@ 1 prakhyat  staff  0 Nov 15 11:16 testfile
+
+/Users/prakhyat/hadoop-yarn-logs:
+total 0
+-rw-r--r--@ 1 prakhyat  staff  0 Nov 15 11:16 testfile
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % rm ~/hadoop-yarn-local/testfile ~/hadoop-yarn-logs/testfile
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % stop-yarn.sh
+Stopping nodemanagers
+localhost: WARNING: nodemanager did not stop gracefully after 5 seconds: Trying to kill with kill -9
+Stopping resourcemanager
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % jps
+82626 Jps
+67991 SecondaryNameNode
+67849 DataNode
+80477 org.eclipse.equinox.launcher_1.8.0.v20260804-1928.jar
+67740 NameNode
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % start-yarn.sh
+Starting resourcemanager
+Starting nodemanagers
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % yarn node -list -all
+2026-11-15 11:17:47,949 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:17:47,983 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+Total Nodes:1
+         Node-Id             Node-State Node-Http-Address       Number-of-Running-Containers
+ localhost:60118                RUNNING    localhost:8042                                  0
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.5.0.jar pi 2 2
+Number of Maps  = 2
+Samples per Map = 2
+2026-11-15 11:18:07,955 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+Wrote input for Map #0
+Wrote input for Map #1
+Starting Job
+2026-11-15 11:18:08,920 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:18:09,050 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794720758823_0001
+2026-11-15 11:18:09,562 INFO input.FileInputFormat: Total input files to process : 2
+2026-11-15 11:18:10,041 INFO mapreduce.JobSubmitter: number of splits:2
+2026-11-15 11:18:10,554 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794720758823_0001
+2026-11-15 11:18:10,554 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:18:10,664 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:18:10,664 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:18:11,033 INFO impl.YarnClientImpl: Submitted application application_1794720758823_0001
+2026-11-15 11:18:11,066 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794720758823_0001/
+2026-11-15 11:18:11,066 INFO mapreduce.Job: Running job: job_1794720758823_0001
+2026-11-15 11:18:12,082 INFO mapreduce.Job: Job job_1794720758823_0001 running in uber mode : false
+2026-11-15 11:18:12,083 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:18:12,093 INFO mapreduce.Job: Job job_1794720758823_0001 failed with state FAILED due to: Application application_1794720758823_0001 failed 2 times due to AM Container for appattempt_1794720758823_0001_000002 exited with  exitCode: -1000
+Failing this attempt.Diagnostics: [2026-11-15 11:18:11.242]No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+For more detailed output, check the application tracking page: http://localhost:8088/cluster/app/application_1794720758823_0001 Then click on links to logs of each attempt.
+. Failing the application.
+2026-11-15 11:18:12,103 INFO mapreduce.Job: Counters: 0
+Job job_1794720758823_0001 failed!
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % grep -iE "disk|local-dir|health|space" $HADOOP_HOME/logs/yarn-*-nodemanager-*.log | tail -50
+zsh: no matches found: /Users/prakhyat/hadoop-3.5.0/logs/yarn-*-nodemanager-*.log
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % ls -lh $HADOOP_HOME/logs/
+total 19208
+-rw-r--r--@ 1 prakhyat  staff     0B Sep 28 04:07 SecurityAuth-prakhyat.audit
+-rw-r--r--@ 1 prakhyat  staff   1.5M Nov 15 11:18 hadoop-prakhyat-datanode-Prakhyats-MacBook-Air.local.log
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 09:32 hadoop-prakhyat-datanode-Prakhyats-MacBook-Air.local.out
+-rw-r--r--  1 prakhyat  staff   485B Nov 14 20:45 hadoop-prakhyat-datanode-Prakhyats-MacBook-Air.local.out.1
+-rw-r--r--  1 prakhyat  staff   485B Oct 31 21:15 hadoop-prakhyat-datanode-Prakhyats-MacBook-Air.local.out.2
+-rw-r--r--  1 prakhyat  staff   485B Oct  1 08:47 hadoop-prakhyat-datanode-Prakhyats-MacBook-Air.local.out.3
+-rw-r--r--  1 prakhyat  staff   485B Sep 28 04:11 hadoop-prakhyat-datanode-Prakhyats-MacBook-Air.local.out.4
+-rw-r--r--@ 1 prakhyat  staff   1.1M Nov 15 11:18 hadoop-prakhyat-namenode-Prakhyats-MacBook-Air.local.log
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 09:32 hadoop-prakhyat-namenode-Prakhyats-MacBook-Air.local.out
+-rw-r--r--  1 prakhyat  staff   485B Nov 14 20:45 hadoop-prakhyat-namenode-Prakhyats-MacBook-Air.local.out.1
+-rw-r--r--  1 prakhyat  staff   485B Oct 31 21:15 hadoop-prakhyat-namenode-Prakhyats-MacBook-Air.local.out.2
+-rw-r--r--  1 prakhyat  staff   6.0K Oct 11 14:19 hadoop-prakhyat-namenode-Prakhyats-MacBook-Air.local.out.3
+-rw-r--r--  1 prakhyat  staff   485B Sep 28 04:11 hadoop-prakhyat-namenode-Prakhyats-MacBook-Air.local.out.4
+-rw-r--r--@ 1 prakhyat  staff   1.2M Nov 15 11:18 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.log
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 11:17 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 11:08 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.1
+-rw-r--r--  1 prakhyat  staff   715B Nov 15 11:04 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.2
+-rw-r--r--  1 prakhyat  staff   715B Nov 15 11:03 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.3
+-rw-r--r--  1 prakhyat  staff   715B Nov 15 11:03 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.4
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 10:58 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.5
+-rw-r--r--@ 1 prakhyat  staff   1.0M Nov 15 11:18 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.log
+-rw-r--r--@ 1 prakhyat  staff   489B Nov 15 11:17 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.out
+-rw-r--r--@ 1 prakhyat  staff   489B Nov 15 11:08 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.out.1
+-rw-r--r--@ 1 prakhyat  staff   715B Nov 15 11:04 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.out.2
+-rw-r--r--@ 1 prakhyat  staff   715B Nov 15 11:03 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.out.3
+-rw-r--r--@ 1 prakhyat  staff   719B Nov 15 11:03 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.out.4
+-rw-r--r--@ 1 prakhyat  staff   489B Nov 15 10:58 hadoop-prakhyat-resourcemanager-Prakhyats-MacBook-Air.local.out.5
+-rw-r--r--@ 1 prakhyat  staff   1.1M Nov 15 10:33 hadoop-prakhyat-secondarynamenode-Prakhyats-MacBook-Air.local.log
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 09:32 hadoop-prakhyat-secondarynamenode-Prakhyats-MacBook-Air.local.out
+-rw-r--r--  1 prakhyat  staff   485B Nov 14 20:45 hadoop-prakhyat-secondarynamenode-Prakhyats-MacBook-Air.local.out.1
+-rw-r--r--  1 prakhyat  staff   485B Oct  1 08:47 hadoop-prakhyat-secondarynamenode-Prakhyats-MacBook-Air.local.out.2
+-rw-r--r--  1 prakhyat  staff   485B Sep 28 04:11 hadoop-prakhyat-secondarynamenode-Prakhyats-MacBook-Air.local.out.3
+drwxr-xr-x@ 2 prakhyat  staff    64B Sep 28 04:13 userlogs
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % ls -lh $HADOOP_HOME/logs/ | grep -i nodemanager
+-rw-r--r--@ 1 prakhyat  staff   1.2M Nov 15 11:18 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.log
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 11:17 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 11:08 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.1
+-rw-r--r--  1 prakhyat  staff   715B Nov 15 11:04 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.2
+-rw-r--r--  1 prakhyat  staff   715B Nov 15 11:03 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.3
+-rw-r--r--  1 prakhyat  staff   715B Nov 15 11:03 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.4
+-rw-r--r--  1 prakhyat  staff   485B Nov 15 10:58 hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.out.5
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % grep -iE "disk|local-dir|health|space|directory" "$HADOOP_HOME/logs/hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.log" | tail -80
+2026-11-15 07:13:51,540 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 07:13:51,541 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 09:32:26,239 INFO org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner: Missing location for the node health check script "script".
+2026-11-15 09:32:26,246 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 09:32:26,251 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 09:32:26,257 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 09:32:26,257 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 09:32:26,262 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 09:32:26,262 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 09:32:26,265 INFO org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.ResourceLocalizationService: per directory file limit = 8192
+2026-11-15 10:57:59,371 INFO org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner: Missing location for the node health check script "script".
+2026-11-15 10:57:59,379 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 10:57:59,384 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 10:57:59,389 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 10:57:59,389 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 10:57:59,391 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 10:57:59,391 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 10:57:59,394 INFO org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.ResourceLocalizationService: per directory file limit = 8192
+2026-11-15 10:58:55,875 INFO org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner: Missing location for the node health check script "script".
+2026-11-15 10:58:55,882 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 10:58:55,887 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 10:58:55,892 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 10:58:55,892 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 10:58:55,894 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 10:58:55,894 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 10:58:55,896 INFO org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.ResourceLocalizationService: per directory file limit = 8192
+2026-11-15 11:00:59,380 INFO org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner: Missing location for the node health check script "script".
+2026-11-15 11:00:59,386 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 11:00:59,391 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 11:00:59,395 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:00:59,395 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:00:59,397 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 11:00:59,397 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 11:00:59,399 INFO org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.ResourceLocalizationService: per directory file limit = 8192
+2026-11-15 11:08:38,715 INFO org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner: Missing location for the node health check script "script".
+2026-11-15 11:08:38,721 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 11:08:38,726 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 11:08:38,731 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:08:38,731 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:08:38,731 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 
+2026-11-15 11:08:38,733 INFO org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.ResourceLocalizationService: per directory file limit = 8192
+2026-11-15 11:09:28,271 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:09:28,271 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720217786_0001_01_0000011a1dda9ffd8.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:09:28,322 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:09:28,322 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720217786_0001_02_0000011a1ddaa0021.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:11:54,218 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:11:54,218 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720217786_0002_01_0000011a1ddac3a08.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:11:54,235 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:11:54,235 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720217786_0002_02_0000011a1ddac3a1b.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:13:57,144 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:13:57,145 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720217786_0003_01_0000011a1ddae1a36.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:13:57,162 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:13:57,162 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720217786_0003_02_0000011a1ddae1a4a.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:17:39,568 INFO org.apache.hadoop.yarn.server.nodemanager.health.NodeHealthScriptRunner: Missing location for the node health check script "script".
+2026-11-15 11:17:39,575 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 11:17:39,579 INFO org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Disk Validator 'basic' is loaded.
+2026-11-15 11:17:39,584 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:17:39,584 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:17:39,584 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 
+2026-11-15 11:17:39,586 INFO org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.ResourceLocalizationService: per directory file limit = 8192
+2026-11-15 11:18:11,196 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:18:11,197 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720758823_0001_01_0000011a1ddb1fa88.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:18:11,241 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+2026-11-15 11:18:11,242 ERROR org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: Searching for a directory for file "nmPrivate/container_1794720758823_0001_02_0000011a1ddb1fac9.tokens", size = -1; checkWrite=true
+Directory count is 0; total available capacity is 0
+org.apache.hadoop.util.DiskChecker$DiskErrorException: No space available in any of the local directories on hostPrakhyats-MacBook-Air.local/127.0.0.1
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % cat "$HADOOP_HOME/etc/hadoop/yarn-site.xml"
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+<configuration>
+<property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+</property>
+
+<property>
+    <name>yarn.nodemanager.env-whitelist</name>
+    <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
+
+</property>
+<property>
+    <name>yarn.nodemanager.local-dirs</name>
+    <value>/Users/prakhyat/hadoop-yarn-local</value>
+</property>
+
+<property>
+    <name>yarn.nodemanager.log-dirs</name>
+    <value>/Users/prakhyat/hadoop-yarn-logs</value>
+</property>
+<!-- Site specific YARN configuration properties -->
+<property>
+    <name>yarn.nodemanager.disk-health-checker.enable</name>
+    <value>false</value>
+</property>
+
+</configuration>
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % nano "$HADOOP_HOME/etc/hadoop/yarn-site.xml" 
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % cat "$HADOOP_HOME/etc/hadoop/yarn-site.xml" 
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+<configuration>
+<property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+</property>
+<property>
+    <name>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage</name>
+    <value>100.0</value>
+</property>
+
+<property>
+    <name>yarn.nodemanager.disk-health-checker.min-free-space-per-disk-mb</name>
+    <value>1</value>
+</property>
+<property>
+    <name>yarn.nodemanager.env-whitelist</name>
+    <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
+
+</property>
+<property>
+    <name>yarn.nodemanager.local-dirs</name>
+    <value>/Users/prakhyat/hadoop-yarn-local</value>
+</property>
+
+<property>
+    <name>yarn.nodemanager.log-dirs</name>
+    <value>/Users/prakhyat/hadoop-yarn-logs</value>
+</property>
+<!-- Site specific YARN configuration properties -->
+<property>
+    <name>yarn.nodemanager.disk-health-checker.enable</name>
+    <value>false</value>
+</property>
+
+</configuration>
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % stop-yarn.sh
+Stopping nodemanagers
+localhost: WARNING: nodemanager did not stop gracefully after 5 seconds: Trying to kill with kill -9
+Stopping resourcemanager
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % start-yarn.sh
+Starting resourcemanager
+Starting nodemanagers
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % yarn node -list -all
+2026-11-15 11:23:48,684 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:23:48,718 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+Total Nodes:1
+         Node-Id             Node-State Node-Http-Address       Number-of-Running-Containers
+ localhost:60358                RUNNING    localhost:8042                                  0
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % grep -iE "above threshold|Disk\(s\) failed|Directory .* error|Directory count is 0" "$HADOOP_HOME/logs/hadoop-prakhyat-nodemanager-Prakhyats-MacBook-Air.local.log" | tail -20
+2026-11-15 10:58:55,894 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 10:58:55,894 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 11:00:59,395 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:00:59,395 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:00:59,397 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 1/1 local-dirs usable space isbelow configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 11:00:59,397 ERROR org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Most of the disks failed. 1/1 local-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-local : used space above threshold of 90.0% ] ; 1/1 log-dirs usable space is below configured utilization percentage/no more usable space [ /Users/prakhyat/hadoop-yarn-logs : used space above threshold of 90.0% ] 
+2026-11-15 11:08:38,731 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:08:38,731 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:08:38,731 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 
+Directory count is 0; total available capacity is 0
+Directory count is 0; total available capacity is 0
+Directory count is 0; total available capacity is 0
+Directory count is 0; total available capacity is 0
+Directory count is 0; total available capacity is 0
+Directory count is 0; total available capacity is 0
+2026-11-15 11:17:39,584 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-local error,used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:17:39,584 WARN org.apache.hadoop.yarn.server.nodemanager.DirectoryCollection: Directory /Users/prakhyat/hadoop-yarn-logs error, used space above threshold of 90.0%, removing from list of valid directories
+2026-11-15 11:17:39,584 INFO org.apache.hadoop.yarn.server.nodemanager.LocalDirsHandlerService: Disk(s) failed: 
+Directory count is 0; total available capacity is 0
+Directory count is 0; total available capacity is 0
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hadoop jar "$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.5.0.jar" pi 2 2
+Number of Maps  = 2
+Samples per Map = 2
+2026-11-15 11:24:05,834 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+Wrote input for Map #0
+Wrote input for Map #1
+Starting Job
+2026-11-15 11:24:06,810 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:24:06,989 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794721119423_0001
+2026-11-15 11:24:07,094 INFO input.FileInputFormat: Total input files to process : 2
+2026-11-15 11:24:07,555 INFO mapreduce.JobSubmitter: number of splits:2
+2026-11-15 11:24:07,650 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794721119423_0001
+2026-11-15 11:24:07,650 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:24:07,731 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:24:07,731 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:24:08,091 INFO impl.YarnClientImpl: Submitted application application_1794721119423_0001
+2026-11-15 11:24:08,125 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794721119423_0001/
+2026-11-15 11:24:08,125 INFO mapreduce.Job: Running job: job_1794721119423_0001
+2026-11-15 11:24:12,208 INFO mapreduce.Job: Job job_1794721119423_0001 running in uber mode : false
+2026-11-15 11:24:12,210 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:24:16,305 INFO mapreduce.Job:  map 100% reduce 0%
+2026-11-15 11:24:20,359 INFO mapreduce.Job:  map 100% reduce 100%
+2026-11-15 11:24:21,385 INFO mapreduce.Job: Job job_1794721119423_0001 completed successfully
+2026-11-15 11:24:21,485 INFO mapreduce.Job: Counters: 50
+        File System Counters
+                FILE: Number of bytes read=50
+                FILE: Number of bytes written=952347
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=534
+                HDFS: Number of bytes written=215
+                HDFS: Number of read operations=13
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=3
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=2
+                Launched reduce tasks=1
+                Data-local map tasks=2
+                Total time spent by all maps in occupied slots (ms)=3604
+                Total time spent by all reduces in occupied slots (ms)=1888
+                Total time spent by all map tasks (ms)=3604
+                Total time spent by all reduce tasks (ms)=1888
+                Total vcore-milliseconds taken by all map tasks=3604
+                Total vcore-milliseconds taken by all reduce tasks=1888
+                Total megabyte-milliseconds taken by all map tasks=3690496
+                Total megabyte-milliseconds taken by all reduce tasks=1933312
+        Map-Reduce Framework
+                Map input records=2
+                Map output records=4
+                Map output bytes=36
+                Map output materialized bytes=56
+                Input split bytes=298
+                Combine input records=0
+                Combine output records=0
+                Reduce input groups=2
+                Reduce shuffle bytes=56
+                Reduce input records=4
+                Reduce output records=0
+                Spilled Records=8
+                Shuffled Maps =2
+                Failed Shuffles=0
+                Merged Map outputs=2
+                GC time elapsed (ms)=24
+                CPU time spent (ms)=0
+                Physical memory (bytes) snapshot=0
+                Virtual memory (bytes) snapshot=0
+                Total committed heap usage (bytes)=485490688
+        Shuffle Errors
+                BAD_ID=0
+                CONNECTION=0
+                IO_ERROR=0
+                WRONG_LENGTH=0
+                WRONG_MAP=0
+                WRONG_REDUCE=0
+        File Input Format Counters 
+                Bytes Read=236
+        File Output Format Counters 
+                Bytes Written=97
+Job Finished in 14.766 seconds
+Estimated value of Pi is 4.00000000000000000000
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hdfs dfs -rm -r -f /ecommerce/output_category_count
+2026-11-15 11:26:14,298 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hadoop jar ecommerce-mapreduce.jar EcommerceMapReduce category_count /ecommerce/cleaned_ecommerce_dataset.csv /ecommerce/output_category_count
+2026-11-15 11:26:23,465 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:26:23,746 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:26:24,077 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface andexecute your application with ToolRunner to remedy this.
+2026-11-15 11:26:24,097 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794721119423_0002
+2026-11-15 11:26:24,271 INFO input.FileInputFormat: Total input files to process : 1
+2026-11-15 11:26:25,158 INFO mapreduce.JobSubmitter: number of splits:1
+2026-11-15 11:26:25,292 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794721119423_0002
+2026-11-15 11:26:25,292 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:26:25,404 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:26:25,404 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:26:25,466 INFO impl.YarnClientImpl: Submitted application application_1794721119423_0002
+2026-11-15 11:26:25,490 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794721119423_0002/
+2026-11-15 11:26:25,490 INFO mapreduce.Job: Running job: job_1794721119423_0002
+2026-11-15 11:26:29,619 INFO mapreduce.Job: Job job_1794721119423_0002 running in uber mode : false
+2026-11-15 11:26:29,621 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:26:33,710 INFO mapreduce.Job:  map 100% reduce 0%
+2026-11-15 11:26:37,756 INFO mapreduce.Job:  map 100% reduce 100%
+2026-11-15 11:26:38,780 INFO mapreduce.Job: Job job_1794721119423_0002 completed successfully
+2026-11-15 11:26:38,890 INFO mapreduce.Job: Counters: 50
+        File System Counters
+                FILE: Number of bytes read=6
+                FILE: Number of bytes written=633409
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=134636973
+                HDFS: Number of bytes written=0
+                HDFS: Number of read operations=8
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=1
+                Launched reduce tasks=1
+                Data-local map tasks=1
+                Total time spent by all maps in occupied slots (ms)=2224
+                Total time spent by all reduces in occupied slots (ms)=1501
+                Total time spent by all map tasks (ms)=2224
+                Total time spent by all reduce tasks (ms)=1501
+                Total vcore-milliseconds taken by all map tasks=2224
+                Total vcore-milliseconds taken by all reduce tasks=1501
+                Total megabyte-milliseconds taken by all map tasks=2277376
+                Total megabyte-milliseconds taken by all reduce tasks=1537024
+        Map-Reduce Framework
+                Map input records=1000096
+                Map output records=0
+                Map output bytes=0
+                Map output materialized bytes=6
+                Input split bytes=126
+                Combine input records=0
+                Combine output records=0
+                Reduce input groups=0
+                Reduce shuffle bytes=6
+                Reduce input records=0
+                Reduce output records=0
+                Spilled Records=0
+                Shuffled Maps =1
+                Failed Shuffles=0
+                Merged Map outputs=1
+                GC time elapsed (ms)=46
+                CPU time spent (ms)=0
+                Physical memory (bytes) snapshot=0
+                Virtual memory (bytes) snapshot=0
+                Total committed heap usage (bytes)=339738624
+        Shuffle Errors
+                BAD_ID=0
+                CONNECTION=0
+                IO_ERROR=0
+                WRONG_LENGTH=0
+                WRONG_MAP=0
+                WRONG_REDUCE=0
+        File Input Format Counters 
+                Bytes Read=134636847
+        File Output Format Counters 
+                Bytes Written=0
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hdfs dfs -cat /ecommerce/output_category_count/part-r-00000
+2026-11-15 11:26:44,942 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hdfs dfs -rm -r -f /ecommerce/output_sales
+2026-11-15 11:27:16,839 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+Deleted /ecommerce/output_sales
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hadoop jar ecommerce-mapreduce.jar EcommerceMapReduce sales /ecommerce/cleaned_ecommerce_dataset.csv /ecommerce/output_sales
+2026-11-15 11:27:25,322 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+2026-11-15 11:27:25,609 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2026-11-15 11:27:25,776 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface andexecute your application with ToolRunner to remedy this.
+2026-11-15 11:27:25,796 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/prakhyat/.staging/job_1794721119423_0003
+2026-11-15 11:27:25,964 INFO input.FileInputFormat: Total input files to process : 1
+2026-11-15 11:27:26,456 INFO mapreduce.JobSubmitter: number of splits:1
+2026-11-15 11:27:26,971 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1794721119423_0003
+2026-11-15 11:27:26,971 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-15 11:27:27,129 INFO conf.Configuration: resource-types.xml not found
+2026-11-15 11:27:27,129 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-15 11:27:27,171 INFO impl.YarnClientImpl: Submitted application application_1794721119423_0003
+2026-11-15 11:27:27,190 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1794721119423_0003/
+2026-11-15 11:27:27,190 INFO mapreduce.Job: Running job: job_1794721119423_0003
+2026-11-15 11:27:31,319 INFO mapreduce.Job: Job job_1794721119423_0003 running in uber mode : false
+2026-11-15 11:27:31,321 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-15 11:27:35,417 INFO mapreduce.Job:  map 100% reduce 0%
+2026-11-15 11:27:39,465 INFO mapreduce.Job:  map 100% reduce 100%
+2026-11-15 11:27:40,491 INFO mapreduce.Job: Job job_1794721119423_0003 completed successfully
+2026-11-15 11:27:40,598 INFO mapreduce.Job: Counters: 50
+        File System Counters
+                FILE: Number of bytes read=6
+                FILE: Number of bytes written=633385
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=134636973
+                HDFS: Number of bytes written=0
+                HDFS: Number of read operations=8
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=1
+                Launched reduce tasks=1
+                Data-local map tasks=1
+                Total time spent by all maps in occupied slots (ms)=2132
+                Total time spent by all reduces in occupied slots (ms)=1284
+                Total time spent by all map tasks (ms)=2132
+                Total time spent by all reduce tasks (ms)=1284
+                Total vcore-milliseconds taken by all map tasks=2132
+                Total vcore-milliseconds taken by all reduce tasks=1284
+                Total megabyte-milliseconds taken by all map tasks=2183168
+                Total megabyte-milliseconds taken by all reduce tasks=1314816
+        Map-Reduce Framework
+                Map input records=1000096
+                Map output records=0
+                Map output bytes=0
+                Map output materialized bytes=6
+                Input split bytes=126
+                Combine input records=0
+                Combine output records=0
+                Reduce input groups=0
+                Reduce shuffle bytes=6
+                Reduce input records=0
+                Reduce output records=0
+                Spilled Records=0
+                Shuffled Maps =1
+                Failed Shuffles=0
+                Merged Map outputs=1
+                GC time elapsed (ms)=46
+                CPU time spent (ms)=0
+                Physical memory (bytes) snapshot=0
+                Virtual memory (bytes) snapshot=0
+                Total committed heap usage (bytes)=339738624
+        Shuffle Errors
+                BAD_ID=0
+                CONNECTION=0
+                IO_ERROR=0
+                WRONG_LENGTH=0
+                WRONG_MAP=0
+                WRONG_REDUCE=0
+        File Input Format Counters 
+                Bytes Read=134636847
+        File Output Format Counters 
+                Bytes Written=0
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hdfs dfs -cat /ecommerce/output_sales/part-r-00000
+2026-11-15 11:27:48,348 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % hdfs dfs -cat /ecommerce/cleaned_ecommerce_dataset.csv | head -1
+2026-11-15 11:29:02,974 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes whereapplicable
+order_id,order_date,order_status,category,quantity,unit_price_usd,total_price_usd,payment_method,city,customer_segment,discount_amount_usd,subtotal,expected_total,difference,ratio,order_year,order_month,order_day
+cat: Unable to write to output stream.
+(base) prakhyat@Prakhyats-MacBook-Air ecommerce-mapreduce % 
